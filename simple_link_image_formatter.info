@@ -1,0 +1,5 @@
+name = Simple link image formatter
+description = Displays a link as an image
+package = Fields
+dependencies[] = link
+core = 7.x

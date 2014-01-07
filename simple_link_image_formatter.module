@@ -1,0 +1,36 @@
+<?php
+/**
+ * Implements hook_field_formatter_info().
+ */
+function simple_link_image_formatter_field_formatter_info() {
+  return array(
+    'simple_link_image_formatter_image_formatter' => array(
+      'label' => t('Simple image formatted from a link'),
+      'field types' => array('link_field'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function simple_link_image_formatter_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  switch ($display['type']) {
+    // This formatter simply outputs the user name as text.
+    case 'simple_link_image_formatter_image_formatter':
+			return simple_link_image_formatter_format($items);
+			break;
+  }
+}
+
+function simple_link_image_formatter_format($items, $link = FALSE) {
+	$element = array();
+	foreach ($items as $delta => $item) {
+		$element[$delta] = array(
+			'#type' => 'html_tag',
+			'#tag' => 'div',
+			'#value' => '<img src="'. $item['url']. '" title="'.$item['title'].'" />',
+		);
+	}
+	return $element;
+}
